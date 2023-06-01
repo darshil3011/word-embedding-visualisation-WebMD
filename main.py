@@ -5,6 +5,8 @@ import numpy as np
 from transformers import DPRContextEncoder
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE 
+import plotly.graph_objects as go
+import pandas as pd
 
 encoder = SentenceTransformer("paraphrase-mpnet-base-v2")
 df = pd.read_csv('output.csv')
@@ -43,10 +45,7 @@ option_1 = False
 option_2 = False
 option_3 = True
 
-import plotly.graph_objects as go
-import pandas as pd
-
-plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': text, 'Distance': distances})
+plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': text})
 plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
 
 if option_1 == True:
