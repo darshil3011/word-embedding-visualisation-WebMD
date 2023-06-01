@@ -32,10 +32,9 @@ query_vector = encoder.encode([query_text])
 # Search for similar text
 k = 5  # Number of nearest neighbors to retrieve
 distance, indices = index.search(query_vector, k=10)
-print(distance)
 # Retrieve the similar text based on the indices
 similar_text = [merged_list[i] for i in indices[0]]
-
+st.text("Similar Diseases : " + similar_text)
 very_similar = similar_text[0:5]
 less_similar = similar_text[6:10]
 
