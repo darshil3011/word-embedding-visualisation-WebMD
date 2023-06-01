@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE 
 import plotly.graph_objects as go
 import pandas as pd
+import streamlit as st
 
 encoder = SentenceTransformer("paraphrase-mpnet-base-v2")
 df = pd.read_csv('output.csv')
