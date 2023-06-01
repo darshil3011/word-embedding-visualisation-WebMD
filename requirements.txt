@@ -4,3 +4,4 @@ pandas==1.4.0
 numpy
 sklearn
 matplotlib
+plotly
