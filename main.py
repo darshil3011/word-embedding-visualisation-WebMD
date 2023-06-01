@@ -21,7 +21,7 @@ index = faiss.IndexFlatL2(vector_dimension)
 faiss.normalize_L2(vectors)
 index.add(vectors)
 
-query_text = "Human herpesvirus 6 infection"
+query_text = st.text_input("Enter disease name")
 
 # Encode the query text
 query_vector = encoder.encode([query_text])
@@ -46,16 +46,20 @@ option_1 = True
 option_2 = False
 option_3 = False
 
+option = st.radio(
+    "What do you want to visualise",
+    ('Only Similar Diseases', 'Less Similar Diseases', 'All'))
+
 plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': text})
 plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
 
-if option_1 == True:
+if option == 'Only Similar Diseases':
   option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text)]
 
-if option_2 == True:
+if option_2 == 'Less Similar Diseases':
   option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text) | (plot_df['Element'].isin(less_similar))]
 
-if option_3 == True:
+if option_3 == 'All':
   option_df = plot_df
 
 fig = go.Figure()
