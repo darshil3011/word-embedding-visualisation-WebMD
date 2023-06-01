@@ -34,6 +34,11 @@ k = 5  # Number of nearest neighbors to retrieve
 distance, indices = index.search(query_vector, k=10)
 # Retrieve the similar text based on the indices
 similar_text = [merged_list[i] for i in indices[0]]
+
+for i in similar_text:
+    i = i.replace('[','')
+    i = i.replace(']','')
+
 if similar_text:
     st.success("Similar Diseases : " + str(similar_text))
 very_similar = similar_text[0:5]
