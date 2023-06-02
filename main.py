@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE 
 import plotly.graph_objects as go
 import pandas as pd
+import os
+
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
 df = pd.read_csv('output.csv')
