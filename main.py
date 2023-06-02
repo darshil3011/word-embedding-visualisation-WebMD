@@ -9,7 +9,7 @@ from sklearn.manifold import TSNE
 import plotly.graph_objects as go
 import pandas as pd
 
-encoder = SentenceTransformer("paraphrase-mpnet-base-v2")
+encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
 df = pd.read_csv('output.csv')
 
 df['Speciality'] = df['Speciality'].apply(lambda x: x.split(', '))
@@ -36,8 +36,8 @@ distance, indices = index.search(query_vector, k=10)
 similar_text = [merged_list[i] for i in indices[0]]
 
 for i in similar_text:
-    i = i.replace('[','')
-    i = i.replace(']','')
+    i = i.replace("']",'')
+    i = i.replace("['",'')
 
 if similar_text:
     st.success("Similar Diseases : " + str(similar_text))
