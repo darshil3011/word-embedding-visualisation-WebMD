@@ -41,8 +41,9 @@ distance, indices = index.search(query_vector, k=10)
 similar_text = [merged_list[i] for i in indices[0]]
 
 for i in similar_text:
-    i = i.replace("']",'')
-    i = i.replace("['",'')
+    i = i.replace("]",'')
+    i = i.replace("[",'')
+    i = i.replace("'", '')
 
 if similar_text:
     st.success("Similar Diseases : " + str(similar_text))
