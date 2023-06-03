@@ -151,6 +151,6 @@ for i, row in final_df.iterrows():
 st.title('Doctor Map')
 st.write('Map showing Santa Clara University and clinic locations')
 
-map = create_map()
+map = create_map(final_df)
 folium_static(map)
 
