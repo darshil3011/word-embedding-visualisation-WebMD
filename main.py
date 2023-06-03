@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE 
 import plotly.graph_objects as go
 import pandas as pd
+from streamlit_folium import folium_static
+from helper import create_map
 import os
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -118,5 +120,36 @@ for i in similar_text:
   temp_df = df[df['Speciality'].apply(lambda x: i in x)]
   final_df = final_df.append(temp_df)
 
-st.text(final_df.head())
-st.text(similar_text)
+st.title('List of Doctors')
+for i, row in final_df.iterrows():
+    doctor_name = row['Doctor']
+    speciality = row['Speciality']
+    clinic_distance = row['Distance(miles)']
+
+    # Convert the list of specialities to a string
+    speciality_str = ', '.join(speciality)
+    # Remove the square brackets and single quotes
+    # speciality_str = speciality_str.replace("[", "").replace("]", "").replace("'", "")
+
+    
+    # Highlight keywords in the speciality
+    for keyword in similar_text:
+        print(keyword)
+        if keyword in speciality_str:
+            print("IT IS PRESENT")
+        speciality_str = speciality_str.replace(keyword, f"**<span style='background-color: lightgreen;'>{keyword}</span>**")
+    
+    print("============speciality_str=====",speciality_str)
+    # Display the doctor's details
+    st.markdown(f"**{doctor_name}**")
+    st.markdown(f"**Speciality:** {speciality_str}", unsafe_allow_html=True)
+    st.write('**Distance (miles):**', clinic_distance)
+    st.write('---')
+
+ # Display the map in Streamlit
+st.title('Doctor Map')
+st.write('Map showing Santa Clara University and clinic locations')
+
+map = create_map()
+folium_static(map)
+
