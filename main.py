@@ -111,4 +111,12 @@ fig.update_layout(
 
 st.plotly_chart(fig)
 
+#creating empty df
+final_df = pd.DataFrame(columns=['Doctor', 'url', 'Speciality', 'Address','Distance(miles)','Timings','Insurance'])
+#filter based on similar diseases
+for i in similar_text:
+  temp_df = df[df['Speciality'].apply(lambda x: i in x)]
+  final_df = final_df.append(temp_df)
 
+st.text(final_df.head())
+st.text(similar_text)
