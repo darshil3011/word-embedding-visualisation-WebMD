@@ -3,7 +3,7 @@ import folium
 from geopy.distance import geodesic
 from streamlit_folium import folium_static
 
-def create_map():
+def create_map(final_df):
     # Create a map centered at Santa Clara University
     map_center = (37.349, -121.939)
     m = folium.Map(location=map_center, zoom_start=8)
