@@ -29,90 +29,91 @@ merged_list = list(set([item for sublist in df['Speciality'] for item in sublist
 similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, query_text)
 
 if query_text != '':
-    st.success("Similar Diseases : " + str(similar_text))
-    very_similar = similar_text[0:5]
-    less_similar = similar_text[6:10]
-
-    final_vector = np.append(vectors, query_vector, axis=0)
-
-    tsne = TSNE(n_components=3, perplexity=2)
-    embeddings = tsne.fit_transform(final_vector)
-    merged_list.append(query_text)
-
-    option_df = pd.DataFrame()
-
-    plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
-    plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
-
-    if option == 'Only Similar Diseases':
-      option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text)]
-
-    elif option == 'Less Similar Diseases':
-      option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text) | (plot_df['Element'].isin(less_similar))]
-
-    elif option == 'All':
-      option_df = plot_df
-    
-  
-    if len(option_df) > 1:
         
-            fig = go.Figure()
+        st.success("Similar Diseases : " + str(similar_text))
+        very_similar = similar_text[0:5]
+        less_similar = similar_text[6:10]
 
-            # Add scatter plot
+        final_vector = np.append(vectors, query_vector, axis=0)
+
+        tsne = TSNE(n_components=3, perplexity=2)
+        embeddings = tsne.fit_transform(final_vector)
+        merged_list.append(query_text)
+
+        option_df = pd.DataFrame()
+
+        plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
+        plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
+
+        if option == 'Only Similar Diseases':
+        option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text)]
+
+        elif option == 'Less Similar Diseases':
+        option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text) | (plot_df['Element'].isin(less_similar))]
+
+        elif option == 'All':
+        option_df = plot_df
+
+
+
+
+        fig = go.Figure()
+
+        # Add scatter plot
+        fig.add_trace(go.Scatter3d(
+        x=option_df['X'],
+        y=option_df['Y'],
+        z=option_df['Z'],
+        mode='markers',
+        marker=dict(
+            color=option_df['Color'],
+            opacity=0.7
+        ),
+        text=option_df['Element'],
+        hoverinfo='text'
+        ))
+
+        # Connect black element with all red elements
+        black_element = option_df[option_df['Color'] == 'red']
+        red_elements = option_df[option_df['Color'] == 'blue']
+
+        for index, row in black_element.iterrows():
+        for red_index, red_row in red_elements.iterrows():
             fig.add_trace(go.Scatter3d(
-                x=option_df['X'],
-                y=option_df['Y'],
-                z=option_df['Z'],
-                mode='markers',
-                marker=dict(
-                    color=option_df['Color'],
-                    opacity=0.7
+                x=[row['X'], red_row['X']],
+                y=[row['Y'], red_row['Y']],
+                z=[row['Z'], red_row['Z']],
+                mode='lines',
+                line=dict(
+                    color='black',
+                    width=2
                 ),
-                text=option_df['Element'],
-                hoverinfo='text'
+                showlegend=True
             ))
 
-            # Connect black element with all red elements
-            black_element = option_df[option_df['Color'] == 'red']
-            red_elements = option_df[option_df['Color'] == 'blue']
+        # Update layoutx
+        fig.update_layout(
+        scene=dict(
+            xaxis=dict(title='X'),
+            yaxis=dict(title='Y'),
+            zaxis=dict(title='Z'),
+        ),
+        margin=dict(l=0, r=0, b=0, t=0)
+        )
 
-            for index, row in black_element.iterrows():
-                for red_index, red_row in red_elements.iterrows():
-                    fig.add_trace(go.Scatter3d(
-                        x=[row['X'], red_row['X']],
-                        y=[row['Y'], red_row['Y']],
-                        z=[row['Z'], red_row['Z']],
-                        mode='lines',
-                        line=dict(
-                            color='black',
-                            width=2
-                        ),
-                        showlegend=True
-                    ))
+        st.plotly_chart(fig)
 
-            # Update layoutx
-            fig.update_layout(
-                scene=dict(
-                    xaxis=dict(title='X'),
-                    yaxis=dict(title='Y'),
-                    zaxis=dict(title='Z'),
-                ),
-                margin=dict(l=0, r=0, b=0, t=0)
-            )
+        #creating empty df
+        final_df = pd.DataFrame(columns=['Doctor', 'url', 'Speciality', 'Address','Distance(miles)','Timings','Insurance'])
+        #filter based on similar diseases
+        for i in similar_text:
+        temp_df = df[df['Speciality'].apply(lambda x: i in x)]
+        final_df = final_df.append(temp_df)
 
-            st.plotly_chart(fig)
+        final_df = final_df[0:5]
 
-    #creating empty df
-    final_df = pd.DataFrame(columns=['Doctor', 'url', 'Speciality', 'Address','Distance(miles)','Timings','Insurance'])
-    #filter based on similar diseases
-    for i in similar_text:
-      temp_df = df[df['Speciality'].apply(lambda x: i in x)]
-      final_df = final_df.append(temp_df)
-
-    final_df = final_df[0:5]
-
-    st.title('List of Doctors')
-    for i, row in final_df.iterrows():
+        st.title('List of Doctors')
+        for i, row in final_df.iterrows():
         doctor_name = row['Doctor']
         speciality = row['Speciality']
         clinic_distance = row['Distance(miles)']
@@ -134,10 +135,10 @@ if query_text != '':
         st.write('**Distance (miles):**', clinic_distance)
         st.write('---')
 
-     # Display the map in Streamlit
-    st.title('Doctor Map')
-    st.write('Map showing Santa Clara University and clinic locations')
+        # Display the map in Streamlit
+        st.title('Doctor Map')
+        st.write('Map showing Santa Clara University and clinic locations')
 
-    map = create_map(final_df)
-    folium_static(map)
+        map = create_map(final_df)
+        folium_static(map)
 
