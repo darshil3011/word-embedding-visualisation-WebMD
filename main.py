@@ -107,33 +107,33 @@ if query_text != '':
         final_df = pd.DataFrame(columns=['Doctor', 'url', 'Speciality', 'Address','Distance(miles)','Timings','Insurance'])
         #filter based on similar diseases
         for i in similar_text:
-        temp_df = df[df['Speciality'].apply(lambda x: i in x)]
-        final_df = final_df.append(temp_df)
+                temp_df = df[df['Speciality'].apply(lambda x: i in x)]
+                final_df = final_df.append(temp_df)
 
-        final_df = final_df[0:5]
+                final_df = final_df[0:5]
 
         st.title('List of Doctors')
         for i, row in final_df.iterrows():
-        doctor_name = row['Doctor']
-        speciality = row['Speciality']
-        clinic_distance = row['Distance(miles)']
+                doctor_name = row['Doctor']
+                speciality = row['Speciality']
+                clinic_distance = row['Distance(miles)']
 
-        # Convert the list of specialities to a string
-        speciality_str = ', '.join(speciality)
-        # Remove the square brackets and single quotes
-        # speciality_str = speciality_str.replace("[", "").replace("]", "").replace("'", "")
+                # Convert the list of specialities to a string
+                speciality_str = ', '.join(speciality)
+                # Remove the square brackets and single quotes
+                # speciality_str = speciality_str.replace("[", "").replace("]", "").replace("'", "")
 
 
-        # Highlight keywords in the speciality
-        for keyword in similar_text:
-            if keyword in speciality_str:
-                speciality_str = speciality_str.replace(keyword, f"**<span style='background-color: lightgreen;'>{keyword}</span>**")
+                # Highlight keywords in the speciality
+                for keyword in similar_text:
+                    if keyword in speciality_str:
+                        speciality_str = speciality_str.replace(keyword, f"**<span style='background-color: lightgreen;'>{keyword}</span>**")
 
-        # Display the doctor's details
-        st.markdown(f"**{doctor_name}**")
-        st.markdown(f"**Speciality:** {speciality_str}", unsafe_allow_html=True)
-        st.write('**Distance (miles):**', clinic_distance)
-        st.write('---')
+                # Display the doctor's details
+                st.markdown(f"**{doctor_name}**")
+                st.markdown(f"**Speciality:** {speciality_str}", unsafe_allow_html=True)
+                st.write('**Distance (miles):**', clinic_distance)
+                st.write('---')
 
         # Display the map in Streamlit
         st.title('Doctor Map')
