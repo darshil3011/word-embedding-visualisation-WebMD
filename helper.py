@@ -26,7 +26,7 @@ def get_similar(text_list, encoder, faiss, query_text):
         i = i.replace("[",'')
         i = i.replace("'", '')
     
-    return similar_text, vectors
+    return similar_text, vectors, query_vector
 
 def create_map(final_df):
     # Create a map centered at Santa Clara University
