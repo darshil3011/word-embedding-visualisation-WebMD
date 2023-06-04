@@ -120,12 +120,9 @@ if query_text != '':
 
         # Highlight keywords in the speciality
         for keyword in similar_text:
-            print(keyword)
             if keyword in speciality_str:
-                print("IT IS PRESENT")
-            speciality_str = speciality_str.replace(keyword, f"**<span style='background-color: lightgreen;'>{keyword}</span>**")
+                speciality_str = speciality_str.replace(keyword, f"**<span style='background-color: lightgreen;'>{keyword}</span>**")
 
-        print("============speciality_str=====",speciality_str)
         # Display the doctor's details
         st.markdown(f"**{doctor_name}**")
         st.markdown(f"**Speciality:** {speciality_str}", unsafe_allow_html=True)
