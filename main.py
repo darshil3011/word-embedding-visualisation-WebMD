@@ -54,8 +54,7 @@ if query_text != '':
         elif option == 'All':
                 option_df = plot_df
 
-
-
+        st.text(option_df.head())
 
         fig = go.Figure()
 
