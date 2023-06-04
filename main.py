@@ -36,9 +36,9 @@ if similar_text is not None:
 
     tsne = TSNE(n_components=3, perplexity=2)
     embeddings = tsne.fit_transform(final_vector)
-    text.append(query_text)
+    merged_list.append(query_text)
 
-    plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': text})
+    plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
     plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
 
     if option == 'Only Similar Diseases':
