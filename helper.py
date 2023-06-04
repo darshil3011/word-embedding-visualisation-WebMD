@@ -3,7 +3,7 @@ import folium
 from geopy.distance import geodesic
 from streamlit_folium import folium_static
 
-def get_similar(text_list, encoder, faiss):
+def get_similar(text_list, encoder, faiss, query_vector):
     text = text_list
     vectors = encoder.encode(text)
     vector_dimension = vectors.shape[1]
