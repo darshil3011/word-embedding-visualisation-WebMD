@@ -25,7 +25,7 @@ option = st.radio(
 df['Speciality'] = df['Speciality'].apply(lambda x: x.split(', '))
 merged_list = list(set([item for sublist in df['Speciality'] for item in sublist]))
 
-similar_text, vectors = get_similar(merged_list, encoder, faiss, query_text)
+similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, query_text)
 
 if similar_text is not None:
     st.success("Similar Diseases : " + str(similar_text))
