@@ -18,7 +18,7 @@ encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
 df = pd.read_csv('updated_output.csv')
 
 query_text = st.text_input("Enter disease name")
-    option = st.radio(
+option = st.radio(
         "What do you want to visualise",
         ('Only Similar Diseases', 'Less Similar Diseases', 'All'))
 
