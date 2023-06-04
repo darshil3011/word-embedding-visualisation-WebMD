@@ -11,10 +11,6 @@ def get_similar(text_list, encoder, faiss, query_vector):
     faiss.normalize_L2(vectors)
     index.add(vectors)
 
-    query_text = st.text_input("Enter disease name")
-    option = st.radio(
-        "What do you want to visualise",
-        ('Only Similar Diseases', 'Less Similar Diseases', 'All'))
 
     # Encode the query text
     query_vector = encoder.encode([query_text])
