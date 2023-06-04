@@ -46,13 +46,13 @@ if query_text != '':
         plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
 
         if option == 'Only Similar Diseases':
-        option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text)]
+                option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text)]
 
         elif option == 'Less Similar Diseases':
-        option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text) | (plot_df['Element'].isin(less_similar))]
+                option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text) | (plot_df['Element'].isin(less_similar))]
 
         elif option == 'All':
-        option_df = plot_df
+                option_df = plot_df
 
 
 
@@ -78,18 +78,18 @@ if query_text != '':
         red_elements = option_df[option_df['Color'] == 'blue']
 
         for index, row in black_element.iterrows():
-        for red_index, red_row in red_elements.iterrows():
-            fig.add_trace(go.Scatter3d(
-                x=[row['X'], red_row['X']],
-                y=[row['Y'], red_row['Y']],
-                z=[row['Z'], red_row['Z']],
-                mode='lines',
-                line=dict(
-                    color='black',
-                    width=2
-                ),
-                showlegend=True
-            ))
+                for red_index, red_row in red_elements.iterrows():
+                    fig.add_trace(go.Scatter3d(
+                        x=[row['X'], red_row['X']],
+                        y=[row['Y'], red_row['Y']],
+                        z=[row['Z'], red_row['Z']],
+                        mode='lines',
+                        line=dict(
+                            color='black',
+                            width=2
+                        ),
+                        showlegend=True
+                    ))
 
         # Update layoutx
         fig.update_layout(
