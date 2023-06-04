@@ -17,6 +17,11 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
 df = pd.read_csv('updated_output.csv')
 
+query_text = st.text_input("Enter disease name")
+    option = st.radio(
+        "What do you want to visualise",
+        ('Only Similar Diseases', 'Less Similar Diseases', 'All'))
+
 df['Speciality'] = df['Speciality'].apply(lambda x: x.split(', '))
 merged_list = list(set([item for sublist in df['Speciality'] for item in sublist]))
 
