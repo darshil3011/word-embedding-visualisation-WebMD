@@ -15,7 +15,7 @@ import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
-df = pd.read_csv('output.csv')
+df = pd.read_csv('updated_output.csv')
 
 df['Speciality'] = df['Speciality'].apply(lambda x: x.split(', '))
 merged_list = list(set([item for sublist in df['Speciality'] for item in sublist]))
