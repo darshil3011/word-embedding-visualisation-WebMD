@@ -39,7 +39,7 @@ tsne = TSNE(n_components=3, perplexity=2)
 embeddings = tsne.fit_transform(final_vector)
 merged_list.append(query_text)
 
-print(leb(embeddings))
+st.text(len(embeddings))
 
 option_df = pd.DataFrame()
 
