@@ -3,6 +3,35 @@ import folium
 from geopy.distance import geodesic
 from streamlit_folium import folium_static
 
+def get_similar(text_list):
+    text = merged_list
+    vectors = encoder.encode(text)
+    vector_dimension = vectors.shape[1]
+    index = faiss.IndexFlatL2(vector_dimension)
+    faiss.normalize_L2(vectors)
+    index.add(vectors)
+
+    query_text = st.text_input("Enter disease name")
+    option = st.radio(
+        "What do you want to visualise",
+        ('Only Similar Diseases', 'Less Similar Diseases', 'All'))
+
+    # Encode the query text
+    query_vector = encoder.encode([query_text])
+
+    # Search for similar text
+    k = 5  # Number of nearest neighbors to retrieve
+    distance, indices = index.search(query_vector, k=10)
+    # Retrieve the similar text based on the indices
+    similar_text = [merged_list[i] for i in indices[0]]
+
+    for i in similar_text:
+        i = i.replace("]",'')
+        i = i.replace("[",'')
+        i = i.replace("'", '')
+    
+    return similar_text
+
 def create_map(final_df):
     # Create a map centered at Santa Clara University
     map_center = (37.349, -121.939)
