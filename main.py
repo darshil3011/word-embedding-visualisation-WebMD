@@ -44,10 +44,10 @@ st.text(len(embeddings))
 plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
 plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
 
-if option == 'Only Similar Diseases':
+if option == 'Top Similar Diseases':
         option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text)]
 
-elif option == 'Less Similar Diseases':
+elif option == 'More Similar Diseases':
         option_df = plot_df[(plot_df['Element'].isin(very_similar)) | (plot_df['Element'] == query_text) | (plot_df['Element'].isin(less_similar))]
 
 elif option == 'All':
