@@ -51,7 +51,10 @@ if query_text != '':
     if option == 'All':
       option_df = plot_df
     
-    if option_df:
+    else:
+       option_df = ''
+    
+    if option_df != '':
         
             fig = go.Figure()
 
