@@ -50,52 +50,54 @@ if query_text != '':
 
     if option == 'All':
       option_df = plot_df
+    
+    if option_df:
+        
+            fig = go.Figure()
 
-    fig = go.Figure()
-
-    # Add scatter plot
-    fig.add_trace(go.Scatter3d(
-        x=option_df['X'],
-        y=option_df['Y'],
-        z=option_df['Z'],
-        mode='markers',
-        marker=dict(
-            color=option_df['Color'],
-            opacity=0.7
-        ),
-        text=option_df['Element'],
-        hoverinfo='text'
-    ))
-
-    # Connect black element with all red elements
-    black_element = option_df[option_df['Color'] == 'red']
-    red_elements = option_df[option_df['Color'] == 'blue']
-
-    for index, row in black_element.iterrows():
-        for red_index, red_row in red_elements.iterrows():
+            # Add scatter plot
             fig.add_trace(go.Scatter3d(
-                x=[row['X'], red_row['X']],
-                y=[row['Y'], red_row['Y']],
-                z=[row['Z'], red_row['Z']],
-                mode='lines',
-                line=dict(
-                    color='black',
-                    width=2
+                x=option_df['X'],
+                y=option_df['Y'],
+                z=option_df['Z'],
+                mode='markers',
+                marker=dict(
+                    color=option_df['Color'],
+                    opacity=0.7
                 ),
-                showlegend=True
+                text=option_df['Element'],
+                hoverinfo='text'
             ))
 
-    # Update layoutx
-    fig.update_layout(
-        scene=dict(
-            xaxis=dict(title='X'),
-            yaxis=dict(title='Y'),
-            zaxis=dict(title='Z'),
-        ),
-        margin=dict(l=0, r=0, b=0, t=0)
-    )
+            # Connect black element with all red elements
+            black_element = option_df[option_df['Color'] == 'red']
+            red_elements = option_df[option_df['Color'] == 'blue']
 
-    st.plotly_chart(fig)
+            for index, row in black_element.iterrows():
+                for red_index, red_row in red_elements.iterrows():
+                    fig.add_trace(go.Scatter3d(
+                        x=[row['X'], red_row['X']],
+                        y=[row['Y'], red_row['Y']],
+                        z=[row['Z'], red_row['Z']],
+                        mode='lines',
+                        line=dict(
+                            color='black',
+                            width=2
+                        ),
+                        showlegend=True
+                    ))
+
+            # Update layoutx
+            fig.update_layout(
+                scene=dict(
+                    xaxis=dict(title='X'),
+                    yaxis=dict(title='Y'),
+                    zaxis=dict(title='Z'),
+                ),
+                margin=dict(l=0, r=0, b=0, t=0)
+            )
+
+            st.plotly_chart(fig)
 
     #creating empty df
     final_df = pd.DataFrame(columns=['Doctor', 'url', 'Speciality', 'Address','Distance(miles)','Timings','Insurance'])
