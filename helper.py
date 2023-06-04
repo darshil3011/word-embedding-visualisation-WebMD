@@ -23,7 +23,7 @@ def get_similar(text_list, encoder, faiss):
     k = 5  # Number of nearest neighbors to retrieve
     distance, indices = index.search(query_vector, k=10)
     # Retrieve the similar text based on the indices
-    similar_text = [merged_list[i] for i in indices[0]]
+    similar_text = [text_list[i] for i in indices[0]]
 
     for i in similar_text:
         i = i.replace("]",'')
