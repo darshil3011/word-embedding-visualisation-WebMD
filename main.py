@@ -39,6 +39,8 @@ tsne = TSNE(n_components=3, perplexity=2)
 embeddings = tsne.fit_transform(final_vector)
 merged_list.append(query_text)
 
+print(leb(embeddings))
+
 option_df = pd.DataFrame()
 
 plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
