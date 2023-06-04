@@ -4,7 +4,7 @@ from geopy.distance import geodesic
 from streamlit_folium import folium_static
 
 def get_similar(text_list):
-    text = merged_list
+    text = text_list
     vectors = encoder.encode(text)
     vector_dimension = vectors.shape[1]
     index = faiss.IndexFlatL2(vector_dimension)
