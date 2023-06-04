@@ -39,8 +39,6 @@ tsne = TSNE(n_components=3, perplexity=2)
 embeddings = tsne.fit_transform(final_vector)
 merged_list.append(query_text)
 
-st.text(len(embeddings))
-
 plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
 plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
 
@@ -53,7 +51,6 @@ elif option == 'More Similar Diseases':
 elif option == 'All':
         option_df = plot_df
 
-st.text(option_df.head())
 
 fig = go.Figure()
 
