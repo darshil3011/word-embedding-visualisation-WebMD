@@ -3,6 +3,7 @@ import folium
 from geopy.distance import geodesic
 from streamlit_folium import folium_static
 import re
+import pandas as pd
 
 def extract_timings(timings_list):
     extracted_timings = {}
