@@ -38,7 +38,7 @@ for i in range(len(similar_text)-3):
         disease_str_1 = f"**<span style='background-color: lightgreen;'>{similar_text[i]}</span>**"
         disease_str_2 = f"**<span style='background-color: lightgreen;'>{similar_text[i+1]}</span>**"
         disease_str_3 = f"**<span style='background-color: lightgreen;'>{similar_text[i+2]}</span>**"
-        st.markdown(f"{disease_str_1}   {disease_str_2}    {disease_str_3}    {disease_str_4}", unsafe_allow_html=True)
+        st.markdown(f"{disease_str_1}   {disease_str_2}    {disease_str_3}", unsafe_allow_html=True)
         #st.text(str(similar_text[i]) + ' ' + str(similar_text[i+1]) + ' ' + str(similar_text[i+2]))
         i = i+4
                                                                                                       
