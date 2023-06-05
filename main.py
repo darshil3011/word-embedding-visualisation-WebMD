@@ -33,7 +33,7 @@ similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, q
 
 st.header("Similar Diseases that nearby doctors treat: ")
 for i in similar_text:
-        st.success(str(similar_text))
+        st.success(str(i))
 
 very_similar = similar_text[0:5]
 less_similar = similar_text[6:10]
