@@ -15,10 +15,10 @@ def extract_timings(timings_list):
     
     for timing in timings_list:
         # Extract day, start time, and end time using regular expressions
-        print(timing)
+        st.text(timing)
         match = re.match(r'(\w+)\s(\d{1,2}:\d{2} [ap]m) - (\d{1,2}:\d{2} [ap]m)', timing.replace("'",""))
         if match:
-            print(here)
+            st.text(here)
             day = match.group(1)
             start_time = match.group(2)
             end_time = match.group(3)
