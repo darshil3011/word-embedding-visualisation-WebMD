@@ -21,7 +21,7 @@ def extract_timings(timings_list):
             extracted_timings[day] = f"{start_time} - {end_time}"
     return extracted_timings
 
-def availability(df)
+def availability(df):
     start =[]
     end = []
     doctors = []
