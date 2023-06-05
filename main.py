@@ -42,7 +42,9 @@ final_vector = np.append(vectors, query_vector, axis=0)
 tsne = TSNE(n_components=3, perplexity=2)
 embeddings = tsne.fit_transform(final_vector)
 merged_list.append(query_text)
-
+for i in merged_list:
+        i = i.strip("[]")
+        
 #plot scatterplot of embeddings
 plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
 plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
