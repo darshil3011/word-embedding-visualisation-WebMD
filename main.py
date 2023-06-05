@@ -33,8 +33,9 @@ similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, q
 
 st.header("Similar Diseases that nearby doctors treat: ")
 i = 0
-for i in range(len(similar_text)):
-        st.text(str(similar_text[i]) + ' ' + str(similar_text[i+1]) + ' ' + str(similar_text[i+2]))
+for i in range(len(similar_text)-1):
+        st.text(f"**<span style='background-color: lightgreen;'>{similar_text[i]}</span>**")
+        #st.text(str(similar_text[i]) + ' ' + str(similar_text[i+1]) + ' ' + str(similar_text[i+2]))
         i = i+3
                                                                                                       
 very_similar = similar_text[0:5]
