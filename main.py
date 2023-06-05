@@ -149,9 +149,9 @@ final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extr
 # Reorder the columns
 column_order = ['Doctor', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 avail_df = final_df[column_order]
-
+st.dataframe(avail_df)
 mon_df = availability(avail_df)
-
+st.dataframe(mon_df)
 fig = px.timeline(mon_df, x_start="start", x_end="end", y="Doctor")
 st.plotly_chart(fig)
 
