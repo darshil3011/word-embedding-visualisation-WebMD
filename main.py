@@ -153,7 +153,13 @@ final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extr
 # Reorder the columns
 column_order = ['Doctor', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 avail_df = final_df[column_order]
-mon_df = availability(avail_df)
-fig = px.timeline(mon_df, x_start="start", x_end="end", y="Doctor")
+
+day = st.radio(
+        "Days:",
+        ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')) 
+
+df_name = availability(avail_df, day)
+
+fig = px.timeline(df_name, x_start="start", x_end="end", y="Doctor")
 st.plotly_chart(fig)
 
