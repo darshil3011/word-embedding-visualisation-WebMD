@@ -7,6 +7,7 @@ from transformers import DPRContextEncoder
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE 
 import plotly.graph_objects as go
+import plotly.express as px
 import pandas as pd
 from streamlit_folium import folium_static
 from helper import create_map, get_similar, availability, extract_timings
