@@ -154,7 +154,7 @@ final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extr
 column_order = ['Doctor', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 avail_df = final_df[column_order]
 
-day = st.radio(
+Find Avaialability = st.radio(
         "Days:",
         ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')) 
 
