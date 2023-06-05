@@ -42,7 +42,7 @@ def availability(df):
     mon_df['start'] = pd.to_datetime(mon_df['start'], format='%I:%M %p')
     mon_df['end'] = pd.to_datetime(mon_df['end'], format='%I:%M %p')
     
-return mon_df
+    return mon_df
 
 def get_similar(text_list, encoder, faiss, query_text):
     vectors = encoder.encode(text_list)
