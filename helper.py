@@ -21,6 +21,29 @@ def extract_timings(timings_list):
             extracted_timings[day] = f"{start_time} - {end_time}"
     return extracted_timings
 
+def availability(df)
+    start =[]
+    end = []
+    doctors = []
+
+    for index, row in df.iterrows():
+
+      if str(row['Mon']) == 'None':
+        start.append(None)
+        end.append(None)
+
+      else:
+        start.append(str(row['Mon']).split(' - ')[0])
+        end.append(str(row['Mon'].split(' - ')[1]))  
+
+      doctors.append(str(row['Doctor']))
+
+    mon_df = pd.DataFrame({'Doctor': doctors, 'start': start, 'end': end})
+    mon_df['start'] = pd.to_datetime(mon_df['start'], format='%I:%M %p')
+    mon_df['end'] = pd.to_datetime(mon_df['end'], format='%I:%M %p')
+    
+return mon_df
+
 def get_similar(text_list, encoder, faiss, query_text):
     vectors = encoder.encode(text_list)
     vector_dimension = vectors.shape[1]
