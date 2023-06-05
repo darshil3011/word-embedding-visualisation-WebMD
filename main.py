@@ -9,9 +9,10 @@ from sklearn.manifold import TSNE
 import plotly.graph_objects as go
 import pandas as pd
 from streamlit_folium import folium_static
-from helper import create_map, get_similar
+from helper import create_map, get_similar, availability, extract_timings
 import os
 
+#detect similar diseases/conditions treated
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
@@ -35,10 +36,12 @@ less_similar = similar_text[6:10]
 
 final_vector = np.append(vectors, query_vector, axis=0)
 
+#embeddings extract via TSNE
 tsne = TSNE(n_components=3, perplexity=2)
 embeddings = tsne.fit_transform(final_vector)
 merged_list.append(query_text)
 
+#plot scatterplot of embeddings
 plot_df = pd.DataFrame({'X': embeddings[:, 0], 'Y': embeddings[:, 1], 'Z': embeddings[:, 2], 'Element': merged_list})
 plot_df['Color'] = plot_df['Element'].apply(lambda x: 'blue' if x in very_similar else 'red' if x == query_text else 'green' if x in less_similar else 'grey')
 
@@ -136,4 +139,16 @@ st.write('Map showing Santa Clara University and clinic locations')
 
 map = create_map(final_df)
 folium_static(map)
+
+#plot timeline code
+df['Extracted_Timings'] = df['Timings'].apply(extract_timings)
+df = pd.concat([df.drop('Extracted_Timings', axis=1), df['Extracted_Timings'].apply(pd.Series)], axis=1)
+# Reorder the columns
+column_order = ['Doctor', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+avail_df = df[column_order]
+
+mon_df = availability(avail_df)
+
+fig = px.timeline(mon_df, x_start="start", x_end="end", y="Doctor")
+st.plotly_chart(fig)
 
