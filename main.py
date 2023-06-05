@@ -144,6 +144,7 @@ folium_static(map)
 
 st.dataframe(final_df) 
 #plot timeline code
+final_df['Timings'] = final_df['Timings'].str.strip('[]').str.split(', ')
 final_df['Extracted_Timings'] = final_df['Timings'].apply(extract_timings)
 final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extracted_Timings'].apply(pd.Series)], axis=1)
 # Reorder the columns
