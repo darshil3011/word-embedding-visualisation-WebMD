@@ -141,11 +141,11 @@ map = create_map(final_df)
 folium_static(map)
 
 #plot timeline code
-df['Extracted_Timings'] = df['Timings'].apply(extract_timings)
-df = pd.concat([df.drop('Extracted_Timings', axis=1), df['Extracted_Timings'].apply(pd.Series)], axis=1)
+final_df['Extracted_Timings'] = final_df['Timings'].apply(extract_timings)
+final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extracted_Timings'].apply(pd.Series)], axis=1)
 # Reorder the columns
 column_order = ['Doctor', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-avail_df = df[column_order]
+avail_df = final_df[column_order]
 
 mon_df = availability(avail_df)
 
