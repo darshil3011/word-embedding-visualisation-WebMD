@@ -32,9 +32,11 @@ merged_list = list(set([item for sublist in df['Speciality'] for item in sublist
 similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, query_text)
 
 st.header("Similar Diseases that nearby doctors treat: ")
-for i in similar_text:
-        st.success(str(i))
-
+i = 0
+for i in range(len(similar_text)):
+        st.text(:blue[str(similar_text[i]] + ' ' + :blue[str(similar_text[i+1]] + ' ' + + ' ' + :blue[str(similar_text[i+2]])
+        i = i+3
+                                                                                                      
 very_similar = similar_text[0:5]
 less_similar = similar_text[6:10]
 
