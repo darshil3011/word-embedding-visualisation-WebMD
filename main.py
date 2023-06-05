@@ -11,6 +11,7 @@ import pandas as pd
 from streamlit_folium import folium_static
 from helper import create_map, get_similar, availability, extract_timings
 import os
+import re
 
 #detect similar diseases/conditions treated
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
