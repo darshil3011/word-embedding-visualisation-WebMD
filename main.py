@@ -109,6 +109,7 @@ final_df = pd.DataFrame(columns=['Doctor', 'url', 'Speciality', 'Address','Dista
 for i in similar_text:
         temp_df = df[df['Speciality'].apply(lambda x: i in x)]
         final_df = final_df.append(temp_df)
+        final_df = final_df.drop_duplicates(subset=['Doctor'])
         final_df = final_df[final_df['Timings'] != "[]"]
         final_df = final_df[0:5]
 
@@ -142,7 +143,7 @@ st.write('Map showing Santa Clara University and clinic locations')
 map = create_map(final_df)
 folium_static(map)
 
-st.dataframe(final_df) 
+
 #plot timeline code
 final_df['Timings'] = final_df['Timings'].str.strip('[]').str.split(', ')
 final_df['Extracted_Timings'] = final_df['Timings'].apply(extract_timings)
@@ -150,9 +151,7 @@ final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extr
 # Reorder the columns
 column_order = ['Doctor', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 avail_df = final_df[column_order]
-st.dataframe(avail_df)
 mon_df = availability(avail_df)
-st.dataframe(mon_df)
 fig = px.timeline(mon_df, x_start="start", x_end="end", y="Doctor")
 st.plotly_chart(fig)
 
