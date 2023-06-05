@@ -3,6 +3,24 @@ import folium
 from geopy.distance import geodesic
 from streamlit_folium import folium_static
 
+def extract_timings(timings_list):
+    extracted_timings = {}
+    
+    days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    
+    for day in days_of_week:
+        extracted_timings[day] = None
+    
+    for timing in timings_list:
+        # Extract day, start time, and end time using regular expressions
+        match = re.match(r'(\w+)\s(\d{1,2}:\d{2} [ap]m) - (\d{1,2}:\d{2} [ap]m)', timing.replace("'",""))
+        if match:
+            day = match.group(1)
+            start_time = match.group(2)
+            end_time = match.group(3)
+            extracted_timings[day] = f"{start_time} - {end_time}"
+    return extracted_timings
+
 def get_similar(text_list, encoder, faiss, query_text):
     vectors = encoder.encode(text_list)
     vector_dimension = vectors.shape[1]
