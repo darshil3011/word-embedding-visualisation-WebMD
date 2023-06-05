@@ -142,6 +142,7 @@ st.write('Map showing Santa Clara University and clinic locations')
 map = create_map(final_df)
 folium_static(map)
 
+st.text(final_df.head(5))
 #plot timeline code
 final_df['Extracted_Timings'] = final_df['Timings'].apply(extract_timings)
 final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extracted_Timings'].apply(pd.Series)], axis=1)
