@@ -34,6 +34,7 @@ similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, q
 st.header("Similar Diseases that nearby doctors treat: ")
 i = 0
 for i in range(len(similar_text)-1):
+        st.text(i)
         disease_str_1 = f"**<span style='background-color: lightgreen;'>{similar_text[i]}</span>**"
         disease_str_2 = f"**<span style='background-color: lightgreen;'>{similar_text[i+1]}</span>**"
         disease_str_3 = f"**<span style='background-color: lightgreen;'>{similar_text[i+2]}</span>**"
