@@ -109,7 +109,7 @@ final_df = pd.DataFrame(columns=['Doctor', 'url', 'Speciality', 'Address','Dista
 for i in similar_text:
         temp_df = df[df['Speciality'].apply(lambda x: i in x)]
         final_df = final_df.append(temp_df)
-
+        final_df = final_df[final_df['Timings'] != "[]"]
         final_df = final_df[0:5]
 
 st.title('List of Doctors')
