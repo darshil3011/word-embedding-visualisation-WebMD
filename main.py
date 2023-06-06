@@ -22,9 +22,7 @@ df = pd.read_csv('updated_output.csv')
 
 st.title("Lets get you treated !")
 query_text = st.text_input("Enter disease name")
-option = st.radio(
-        "What do you want to visualise",
-        ('Top Similar Diseases', 'More Similar Diseases', 'All'))
+
 
 df['Speciality'] = df['Speciality'].apply(lambda x: x.split(', '))
 merged_list = list(set([item for sublist in df['Speciality'] for item in sublist]))
@@ -39,6 +37,12 @@ for i in range(0,len(similar_text)-3,3):
         disease_str_3 = f"**<span style='background-color: lightgreen;'>{similar_text[i+2]}</span>**"
         st.markdown(f"{disease_str_1}   {disease_str_2}    {disease_str_3}", unsafe_allow_html=True)
         #st.text(str(similar_text[i]) + ' ' + str(similar_text[i+1]) + ' ' + str(similar_text[i+2]))
+        
+
+st.header("Visualise Word Embeddings")        
+option = st.radio(
+        "What do you want to visualise",
+        ('Top Similar Diseases', 'More Similar Diseases', 'All'))
                                                                                                       
 very_similar = similar_text[0:5]
 less_similar = similar_text[6:10]
