@@ -26,7 +26,8 @@ encoder = load_model()
 
 df = pd.read_csv('updated_output.csv')
 
-st.title("Lets get you treated !")
+st.title("Welcome to MedQuest !")
+st.header("Lets get you treated..")
 query_text = st.text_input("Enter disease name")
 
 if query_text != '':
