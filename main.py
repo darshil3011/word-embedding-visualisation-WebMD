@@ -23,7 +23,9 @@ df = pd.read_csv('updated_output.csv')
 st.title("Lets get you treated !")
 query_text = st.text_input("Enter disease name")
 
-
+if query_text != '':
+        st.text('yo')
+        
 df['Speciality'] = df['Speciality'].apply(lambda x: x.split(', '))
 merged_list = list(set([item for sublist in df['Speciality'] for item in sublist]))
 
