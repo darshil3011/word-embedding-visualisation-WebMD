@@ -33,14 +33,12 @@ similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, q
 
 st.header("Similar Diseases that nearby doctors treat: ")
 i = 0
-for i in range(len(similar_text)-3):
-        st.text(i)
+for i in range(len(similar_text)-3,3):
         disease_str_1 = f"**<span style='background-color: lightgreen;'>{similar_text[i]}</span>**"
         disease_str_2 = f"**<span style='background-color: lightgreen;'>{similar_text[i+1]}</span>**"
         disease_str_3 = f"**<span style='background-color: lightgreen;'>{similar_text[i+2]}</span>**"
         st.markdown(f"{disease_str_1}   {disease_str_2}    {disease_str_3}", unsafe_allow_html=True)
         #st.text(str(similar_text[i]) + ' ' + str(similar_text[i+1]) + ' ' + str(similar_text[i+2]))
-        i = i+4
                                                                                                       
 very_similar = similar_text[0:5]
 less_similar = similar_text[6:10]
