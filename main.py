@@ -29,6 +29,9 @@ merged_list = list(set([item for sublist in df['Speciality'] for item in sublist
 
 similar_text, vectors, query_vector = get_similar(merged_list, encoder, faiss, query_text)
 
+
+st.text(" ")
+
 st.header("Similar Diseases that nearby doctors treat: ")
 i = 0
 for i in range(0,len(similar_text)-3,3):
@@ -38,6 +41,9 @@ for i in range(0,len(similar_text)-3,3):
         st.markdown(f"{disease_str_1}   {disease_str_2}    {disease_str_3}", unsafe_allow_html=True)
         #st.text(str(similar_text[i]) + ' ' + str(similar_text[i+1]) + ' ' + str(similar_text[i+2]))
         
+st.text(" ")
+st.text(" ")
+st.text(" ")
 
 st.header("Visualise Word Embeddings")        
 option = st.radio(
