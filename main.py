@@ -46,11 +46,11 @@ st.text(" ")
 st.text(" ")
 
 st.header("Visualise Word Embeddings")        
+st.markdown('''A word embedding is a learned numeric representation for text where words that have the same meaning have a similar representation. It is this approach to representing words and documents that makes it easier for machines to interpret human languages.''')
+st.text("")
 option = st.radio(
         "What do you want to visualise",
         ('Top Similar Diseases', 'More Similar Diseases', 'All'))
-st.markdown('''A word embedding is a learned numeric representation for text where words that have the same meaning have a similar representation. It is this approach to representing words and documents that makes it easier for machines to interpret human languages.''')
-                                                                                                      
 very_similar = similar_text[0:5]
 less_similar = similar_text[6:10]
 
