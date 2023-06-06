@@ -17,7 +17,13 @@ import re
 #detect similar diseases/conditions treated
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
+@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+def load_model():
+        encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
+        return encoder
+
+encoder = load_model()
+
 df = pd.read_csv('updated_output.csv')
 
 st.title("Lets get you treated !")
