@@ -133,7 +133,10 @@ for i in similar_text:
         final_df = final_df[final_df['Timings'] != "[]"]
         final_df = final_df[0:5]
 
+st.text(" ")
+st.text(" ")
 st.title('List of Doctors')
+st.markdown("Lets search doctors that treat the conditions we matched using word embeddings:")
 for i, row in final_df.iterrows():
         doctor_name = row['Doctor']
         speciality = row['Speciality']
