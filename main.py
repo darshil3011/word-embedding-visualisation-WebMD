@@ -186,3 +186,11 @@ df_name = availability(avail_df, day)
 fig = px.timeline(df_name, x_start="start", x_end="end", y="Doctor")
 st.plotly_chart(fig)
 
+st.header("Precaution better than cure")
+url = 'https://stackoverflow.com'
+
+st.markdown(f'''
+<a href={url}><button style="background-color:GreenYellow;">Stay Fit !</button></a>
+''',
+unsafe_allow_html=True)
+
