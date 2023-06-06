@@ -17,7 +17,7 @@ import re
 #detect similar diseases/conditions treated
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+@st.cache_resource
 def load_model():
         encoder = SentenceTransformer("pritamdeka/S-PubMedBert-MS-MARCO")
         return encoder
