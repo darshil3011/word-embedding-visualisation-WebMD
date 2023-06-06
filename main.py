@@ -137,6 +137,7 @@ st.text(" ")
 st.text(" ")
 st.title('List of Doctors')
 st.markdown("Lets search doctors that treat the conditions we matched using word embeddings:")
+st.write('---')
 for i, row in final_df.iterrows():
         doctor_name = row['Doctor']
         speciality = row['Speciality']
@@ -166,8 +167,9 @@ st.write('Map showing Santa Clara University and clinic locations')
 map = create_map(final_df)
 folium_static(map)
 
-
+st.text(" ")
 #plot timeline code
+st.title("When are the doctors Available ?")
 final_df['Timings'] = final_df['Timings'].str.strip('[]').str.split(', ')
 final_df['Extracted_Timings'] = final_df['Timings'].apply(extract_timings)
 final_df = pd.concat([final_df.drop('Extracted_Timings', axis=1), final_df['Extracted_Timings'].apply(pd.Series)], axis=1)
